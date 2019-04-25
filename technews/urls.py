@@ -15,9 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static #media
+from django.conf import settings #media
+from django.conf.urls import handler404, handler500 #error 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('blog/', include('blog.urls')),
 ]
+
+#handler404 = 'home.views.errors'
+#handler500 = 'home.views.errors'
+
+# add link media vào
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
